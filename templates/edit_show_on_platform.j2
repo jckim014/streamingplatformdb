@@ -1,0 +1,65 @@
+<html>
+
+<head>
+	<title>Edit Show and Platform</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div>
+        <table border="1" cellpadding="5"> 
+            <caption><strong> Editing Show and Platform: </strong></caption>
+            <!-- Access data tuple passed from app.py -->
+            {% if data %}
+                <thead>
+                    <tr>
+                        <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in data[0].keys() %}
+
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                        <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+                <tbody>
+                    <!-- Now, iterate through every item in data -->
+                    {% for item in data %}
+                    <tr>
+                        <!-- Then iterate through every key in the current item dictionary -->
+                        {% for key in item.keys() %}
+                        
+                        <!-- Create a <td> element with the value of that key in it -->
+                        <td>{{item[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+        </table>
+        <p>&nbsp;</p>
+        <div id="edit">
+            <!-- form to edit data in ShowOnPlatform-->
+            <form id="editShowOnPlatform" action="/edit_show_on_platform/{{data[0].showsPlatformsID}}" method="post">
+                <legend><strong>Edit Show and Platform</strong></legend>
+                <fieldset>
+                    <input type="hidden" value="{{data[0].showsPlatformsID}}" class="form-control" id="showsPlatformsID" name="showsPlatformsID" required>
+                    
+                    <label> Show </label> 
+                        <select name="showID" required>
+                            {% for item in showdata %}
+                                <option value="{{ item.showID }}"> {{item.showName}} </option>
+                            {% endfor %}
+                        </select>
+
+                    <label> Platform </label>
+                        <select name="platformID" required>
+                            {% for item in platformdata %}
+                                <option value="{{ item.platformID }}"> {{ item.platformName }} </option>
+                            {% endfor %}
+                        </select>    
+                </fieldset>
+                <input type="submit" value="Edit Show and Platform" name="Edit_Show_And_Platform" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/showsonplatforms'><input class="btn" type="button" value="Cancel"></a>
+            </form>
+
+</html>

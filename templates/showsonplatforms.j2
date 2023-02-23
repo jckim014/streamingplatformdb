@@ -1,0 +1,66 @@
+<html>
+
+<head>
+    <title>ShowsOnPlatforms</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <h1>ShowsOnPlatforms</h1>
+    <nav>
+        <a href="/ ">Home</a> |
+        <a href="shows">Shows</a> |
+        <a href="platforms">Platforms</a> |
+        <a href="showsonplatforms">ShowsOnPlatforms</a> |
+        <a href="users">Users</a> |
+        <a href="reviews">Reviews</a> |
+        <a href="contenttypes">ContentTypes</a> |
+        <a href="genres">Genres</a> |
+    </nav>
+    <p>&nbsp;</p>
+     <div style="display:block">
+         <p><strong>Browse Shows</strong></p>
+        <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                {% for key in data[0].keys() %}
+                <th>{{ key }}</th>
+                {% endfor %}
+            </tr>
+        <tbody>
+        {% for show in data %}
+        <tr>
+            {% for key in show.keys() %}
+            <td>{{show[key]}}</td>
+            {% endfor %}
+            <td><a href="edit_show_on_platform/{{show.showsPlatformsID}}" class="btn btn-default">Edit</a></td>
+            <td><a href="delete_show_on_platform/{{show.showsPlatformsID}}" class="btn btn-default">Delete</a></td>
+        </tr>
+        {% endfor %}
+
+        </table>
+        <p>&nbsp;</p>
+    </div>
+   <div style="display: block">
+        <form id="addShowsPlatforms action="showsonplatforms" method ="post">
+            <legend><strong>Add Show to a Platform</strong></legend>
+            <fieldset class="fields">
+                <label> showID </label>
+                    <select name="showID" required>
+                        {% for item in showdata %}
+                            <option value="{{ item.showID }}"> {{ item.showName }} </option>
+                        {% endfor %}
+                    </select>
+                <label> platformID </label>
+                    <select name="platformID" required>
+                        {% for item in platformdata %}
+                            <option value="{{ item.platformID }}"> {{ item.platformName }} </option>
+                        {% endfor %}
+                    </select>
+            </fieldset>
+            <input class="btn" type="submit" value="Add a Show" name="Add_Show_To_Platform">
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <title>Users</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <h1>Users</h1>
+    <nav>
+        <a href="/ ">Home</a> |
+        <a href="shows">Shows</a> |
+        <a href="platforms">Platforms</a> |
+        <a href="showsonplatforms">ShowsOnPlatforms</a> |
+        <a href="users">Users</a> |
+        <a href="reviews">Reviews</a> |
+        <a href="contenttypes">ContentTypes</a> |
+        <a href="genres">Genres</a> |
+    </nav>
+    <p>&nbsp;</p>
+    <div style="display:block">
+        <p><strong>Browse Users</strong></p>
+        <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                {% for key in Users[0].keys() %}
+                <th>{{ key }}</th>
+                {% endfor %}
+            </tr>
+        <tbody>
+        {% for user in Users %}
+        <tr>
+            {% for key in user.keys() %}
+            <td>{{user[key]}}</td>
+            {% endfor %}
+			<td><a href="edit_user/{{user.userID}}" class="btn btn-default">Edit</a></td>
+			<td><a href="delete_user/{{user.userID}}" class="btn btn-default">Delete</a></td>
+        </tr>
+        {% endfor %}
+
+        </table>
+        <p>&nbsp;</p>
+    </div>
+    <div style="display: block">
+        <form id="addUser" action="/users" method="post">
+            <legend><strong>Add User</strong></legend>
+            <fieldset class="fields">
+                <label> username </label> <input type="text" name="userName" id="userName" required>
+                <label> email </label> <input type="email" name="email" id="email" required>
+                <label> dateCreated </label> <input type="date" name="dateCreated" id="dateCreated" required>
+            </fieldset>
+            <input class="btn" type="submit" value="Add a User" name="Add_User">
+        </form>
+    </div>
+</body>
+
+</html>

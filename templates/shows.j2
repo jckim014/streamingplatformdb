@@ -1,0 +1,90 @@
+<html>
+
+<head>
+    <title>Shows</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <h1>Shows</h1>
+    <nav>
+        <a href="/ ">Home</a> |
+        <a href="shows">Shows</a> |
+        <a href="platforms">Platforms</a> |
+        <a href="showsonplatforms">ShowsOnPlatforms</a> |
+        <a href="users">Users</a> |
+        <a href="reviews">Reviews</a> |
+        <a href="contenttypes">ContentTypes</a> |
+        <a href="genres">Genres</a> |
+    </nav>
+    <p>&nbsp;</p>
+    <div style="display:block">
+         <p><strong>Browse Shows</strong></p>
+        <table border="1" cellpadding="5">
+            <thead>
+                <tr>
+                    {% for key in data[0].keys() %}
+                    <th>{{ key }}</th>
+                    {% endfor %}
+                </tr>
+            <tbody>
+            {% for show in data %}
+            <tr>
+                {% for key in show.keys() %}
+                <td>{{show[key]}}</td>
+                {% endfor %}
+                <td><a href="edit_show/{{show.showID}}" class="btn btn-default">Edit</a></td>
+                <td><a href="delete_show/{{show.showID}}" class="btn btn-default">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p>&nbsp;</p>
+    </div>
+    <div style="display: block">
+        <form id="searchShow" action="/shows" method="post">
+            <legend><strong>Search for a Show</strong></legend>
+            <fieldset class="fields">
+                <label> type </label>
+                    <select name="searchType">
+                        <option value=""> </option>
+                        {% for item in typedata %}
+                            <option value="{{ item.typeID }}"> {{ item.description }} </option>
+                        {% endfor %}
+                    </select>
+                <label> genre </label>
+                    <select name="searchGenre">
+                        <option value=""> </option>
+                        {% for item in genredata %}
+                            <option value="{{ item.genreID }}"> {{ item.description }} </option>
+                        {% endfor %}
+                    </select>
+            </fieldset>
+            <input class="btn" type="submit" value="Search for a Show" name="Search_Show">
+        </form>
+    </div>
+    <div style="display: block">
+        <form id="addShow" action="/shows" method="post">
+            <legend><strong>Add Show</strong></legend>
+            <fieldset class="fields">
+                <label> showName </label> <input type="text" name="showName" required>
+                <label> typeID </label> 
+                    <select name="addType">
+                        {% for item in typedata %}
+                            <option value="{{ item.typeID }}"> {{ item.description }} </option>
+                        {% endfor %}
+                    </select>
+                <label> genreID </label>
+                    <select name="addGenre">
+                        {% for item in genredata %}
+                            <option value="{{ item.genreID }}"> {{ item.description }} </option>
+                        {% endfor %}
+                    </select>
+                <label> showRating </label> <input type="number" step="0.1" min="1" max="5" name="showRating">
+                <label> releaseDate </label> <input type="date" name="releaseDate">
+            </fieldset>
+            <input class="btn" type="submit" value="Add a Show" name="Add_Show">
+        </form>
+    </div>
+</body>
+
+</html>

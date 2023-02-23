@@ -1,0 +1,55 @@
+<html>
+
+<head>
+    <title>Platforms</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <h1>Platforms</h1>
+    <nav>
+        <a href="/ ">Home</a> |
+        <a href="shows">Shows</a> |
+        <a href="platforms">Platforms</a> |
+        <a href="showsonplatforms">ShowsOnPlatforms</a> |
+        <a href="users">Users</a> |
+        <a href="reviews">Reviews</a> |
+        <a href="contenttypes">ContentTypes</a> |
+        <a href="genres">Genres</a> |
+    </nav>
+    <p>&nbsp;</p>
+    <div style="display:block">
+        <p><strong>Browse Platforms</strong></p>
+        <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                {% for key in data[0].keys() %}
+                <th>{{ key }}</th>
+                {% endfor %}
+            </tr>
+            <tbody>
+            {% for item in data %}
+            <tr>
+                {% for key in item.keys() %}
+                <td>{{item[key]}}</td>
+                {% endfor %}
+                <td><a href="edit_platform/{{item.platformID}}" class="btn btn-default">Edit</a></td>
+                <td><a href="delete_platform/{{item.platformID}}" class="btn btn-default">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p>&nbsp;</p>
+    </div>
+    <div style="display: block">
+        <form id="addPlatform" action="/platforms" method="post">
+            <legend><strong>Add Platform</strong></legend>
+            <fieldset class="fields">
+                <label> platformName </label> <input type="text" name="platformName" required>
+                <label> numberShows </label> <input type="number" name="numberShows">
+            </fieldset>
+            <input class="btn" type="submit" value="Add a Platform" name="Add_Platform">
+        </form>
+    </div>
+</body>
+
+</html>

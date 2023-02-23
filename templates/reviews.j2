@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <title>Reviews</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <h1>Reviews</h1>
+    <nav>
+        <a href="/ ">Home</a> |
+        <a href="shows">Shows</a> |
+        <a href="platforms">Platforms</a> |
+        <a href="showsonplatforms">ShowsOnPlatforms</a> |
+        <a href="users">Users</a> |
+        <a href="reviews">Reviews</a> |
+        <a href="contenttypes">ContentTypes</a> |
+        <a href="genres">Genres</a> |
+    </nav>
+    <p>&nbsp;</p>
+    <div style="display:block">
+        <p><strong>Browse Reviews</strong></p>
+        <table border="1" cellpadding="5">
+            <thead>
+                <tr>
+                    {% for key in data[0].keys() %}
+                    <th>{{ key }}</th>
+                    {% endfor %}
+                </tr>
+            <tbody>
+            {% for item in data %}
+            <tr>
+                {% for key in item.keys() %}
+                <td>{{item[key]}}</td>
+                {% endfor %}
+                <td><a href="edit_review/{{item.reviewID}}" class="btn btn-default">Edit</a></td>
+                <td><a href="delete_review/{{item.reviewID}}" class="btn btn-default">Delete</a></td>
+            </tr>
+            {% endfor %}
+            </table>
+        <p>&nbsp;</p>
+    </div>
+    <div style="display: block"> 
+        <form id="addReview" action="/reviews" method="post">
+            <legend><strong>Add Review</strong></legend>
+            <fieldset class="fields">
+                <label> Username </label> 
+                    <select name="userID" required>
+                        {% for item in userdata %}
+                            <option value="{{ item.userID }}"> {{ item.userName }} </option>
+                        {% endfor %}
+                    </select>
+                <label> Show </label>
+                    <select name="showID" required>
+                        {% for item in showdata %}
+                            <option value="{{ item.showID }}"> {{ item.showName }} </option>
+                        {% endfor %}
+                    </select>
+                <label> dateCreated </label> <input type="date" name="dateCreated" required>
+                <label> rating </label> <input type="number" name="rating" min="1" max="5" required>
+                <label> reviewText </label> <input type="text" name="reviewText">
+            </fieldset>
+            <input class="btn" type="submit" value="Add a Review" name="Add_Review">
+        </form>
+    </div>
+</body>
+
+</html>
